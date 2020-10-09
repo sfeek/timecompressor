@@ -1,0 +1,10 @@
+C:\SourceCode\Time Compressor\bin\Release\Time Compressor.exe.config
+C:\SourceCode\Time Compressor\bin\Release\Time Compressor.exe
+C:\SourceCode\Time Compressor\bin\Release\Time Compressor.pdb
+C:\SourceCode\Time Compressor\obj\Release\Time Compressor.csprojAssemblyReference.cache
+C:\SourceCode\Time Compressor\obj\Release\Time_Compressor.TimeCompressor.resources
+C:\SourceCode\Time Compressor\obj\Release\Time_Compressor.Properties.Resources.resources
+C:\SourceCode\Time Compressor\obj\Release\Time Compressor.csproj.GenerateResource.cache
+C:\SourceCode\Time Compressor\obj\Release\Time Compressor.csproj.CoreCompileInputs.cache
+C:\SourceCode\Time Compressor\obj\Release\Time Compressor.exe
+C:\SourceCode\Time Compressor\obj\Release\Time Compressor.pdb
