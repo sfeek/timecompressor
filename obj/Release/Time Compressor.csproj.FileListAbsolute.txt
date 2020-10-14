@@ -8,3 +8,16 @@ C:\SourceCode\Time Compressor\obj\Release\Time Compressor.csproj.GenerateResourc
 C:\SourceCode\Time Compressor\obj\Release\Time Compressor.csproj.CoreCompileInputs.cache
 C:\SourceCode\Time Compressor\obj\Release\Time Compressor.exe
 C:\SourceCode\Time Compressor\obj\Release\Time Compressor.pdb
+C:\SourceCode\timecompressor\bin\Release\Time Compressor.exe.config
+C:\SourceCode\timecompressor\bin\Release\Time Compressor.exe.manifest
+C:\SourceCode\timecompressor\bin\Release\Time Compressor.application
+C:\SourceCode\timecompressor\bin\Release\Time Compressor.exe
+C:\SourceCode\timecompressor\bin\Release\Time Compressor.pdb
+C:\SourceCode\timecompressor\obj\Release\Time Compressor.csprojAssemblyReference.cache
+C:\SourceCode\timecompressor\obj\Release\Time_Compressor.TimeCompressor.resources
+C:\SourceCode\timecompressor\obj\Release\Time_Compressor.Properties.Resources.resources
+C:\SourceCode\timecompressor\obj\Release\Time Compressor.csproj.GenerateResource.cache
+C:\SourceCode\timecompressor\obj\Release\Time Compressor.exe.manifest
+C:\SourceCode\timecompressor\obj\Release\Time Compressor.application
+C:\SourceCode\timecompressor\obj\Release\Time Compressor.exe
+C:\SourceCode\timecompressor\obj\Release\Time Compressor.pdb

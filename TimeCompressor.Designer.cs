@@ -84,7 +84,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "TimeCompressor";
-            this.Text = "Time Compressor v1.0";
+            this.Text = "Time Compressor v1.1";
             this.ResumeLayout(false);
             this.PerformLayout();
 

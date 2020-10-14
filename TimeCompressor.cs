@@ -4,11 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace Time_Compressor
 {
     public partial class TimeCompressor : Form
     {
+        class AVGSTD
+        {
+            public double avg;
+            public double std;
+        };
+
+        double[,] buffer;
+
         public TimeCompressor()
         {
             InitializeComponent();
@@ -17,19 +26,16 @@ namespace Time_Compressor
         private void btn_compress_Click(object sender, EventArgs e)
         {
             int interval;
-            int x, y, i;
+            int i;
             string line;
-            int counter = 0;
+            int counter;
             int icounter = 0;
             string[] labels;
             string[] fields;
-            double[,] buffer;
-            double a, s;
+            
+
             string output = String.Empty;
             string outfilename = String.Empty;
-
-            List<double> avg = new List<double>();
-            List<double> std = new List<double>();
 
             btn_compress.Enabled = false;
             
@@ -56,17 +62,19 @@ namespace Time_Compressor
                     using (StreamReader reader = new StreamReader(fileStream))
                     {
                         line = reader.ReadLine();
-                        labels = ParseLine(line);
+                        labels = line.Split(',');
                         buffer = new double[interval, labels.Length];
 
                         output += "Rec#,";
-                        for (x = 0; x < labels.Length; x++) // Write out our labels
+                        for (int x = 0; x < labels.Length; x++) // Write out our labels
                         {
                             if (x < labels.Length - 1)
                                 output += labels[x] + "_avg," + labels[x] + "_std,";
                             else
                                 output += labels[x] + "_avg," + labels[x] + "_std";
                         }
+
+                        Task<AVGSTD>[] t = new Task<AVGSTD>[labels.Length];
 
                         using (StreamWriter sw = File.AppendText(outfilename))
                         {
@@ -81,26 +89,22 @@ namespace Time_Compressor
                                     output = String.Empty;
                                     output += counter + ",";
 
-                                    for (x = 0; x < labels.Length; x++)
+                                    for (int x = 0; x < labels.Length; x++)
                                     {
-                                        avg.Clear();
-                                        std.Clear();
-
-                                        for (y = 0; y < icounter; y++)
-                                        {
-                                            avg.Add(buffer[y, x]);
-                                            std.Add(buffer[y, x]);
-                                        }
-
-                                        a = avg.Average();
-                                        s = StandardDeviation(a,std);
-
-                                        if (x < labels.Length - 1)
-                                            output += a + "," + s + ",";
-                                        else
-                                            output += a + "," + s;
+                                        int p = x;
+                                        int ic = icounter;
+                                        t[x] = Task.Run(() => OneColumn(p, ic));
                                     }
 
+                                    Task.WaitAll(t);
+
+                                    for (int x = 0; x < labels.Length; x++)
+                                    {
+                                        if (x < labels.Length - 1)
+                                            output += t[x].Result.avg + "," + t[x].Result.std + ",";
+                                        else
+                                            output += t[x].Result.avg + "," + t[x].Result.std;
+                                    }
 
                                     sw.WriteLine(output);
                                     lblRecordNumber.Text = "Record #" + counter;
@@ -110,7 +114,7 @@ namespace Time_Compressor
 
                                 for (i = 0; i < labels.Length; i++) // Otherwise add to buffer
                                 {
-                                    fields = ParseLine(line);
+                                    fields = line.Split(',');
                                     try
                                     {
                                         buffer[icounter, i] = Convert.ToDouble(fields[i]);
@@ -122,32 +126,30 @@ namespace Time_Compressor
                                 icounter++;
                             }
 
-                            // Process the remaining values
                             output = String.Empty;
                             output += counter + ",";
 
-                            for (x = 0; x < labels.Length; x++)
+                            // Finished the leftover lines
+                            for (int x = 0; x < labels.Length; x++)
                             {
-                                avg.Clear();
-                                std.Clear();
+                                int p = x;
+                                int ic = icounter;
+                                Task.Run(() => OneColumn(p, ic));
+                            }
 
-                                for (y = 0; y < icounter; y++)
-                                {
-                                    avg.Add(buffer[y, x]);
-                                    std.Add(buffer[y, x]);
-                                }
+                            Task.WaitAll(t);
 
-                                a = avg.Average();
-                                s = StandardDeviation(a, std);
-
+                            for (int x = 0; x < labels.Length; x++)
+                            {
                                 if (x < labels.Length - 1)
-                                    output += a + "," + s + ",";
+                                    output += t[x].Result.avg + "," + t[x].Result.std + ",";
                                 else
-                                    output += a + "," + s;
+                                    output += t[x].Result.avg + "," + t[x].Result.std;
                             }
 
                             sw.WriteLine(output);
                             lblRecordNumber.Text = "Record #" + counter;
+
                             icounter = 0;
                         }
                     }
@@ -156,36 +158,8 @@ namespace Time_Compressor
             btn_compress.Enabled = true;
         }
 
-        // Parse an individual line of CSV
-        static string[] ParseLine(string lines)
-        {
-            string[] fields;
-            string[] lineArray;
-
-            try
-            {
-                fields = Regex.Split(lines, ",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-
-                lineArray = new string[fields.Length];
-
-                int x = 0;
-                foreach (string value in fields)
-                {
-                    string check = Regex.Replace(value, "^\"|\"$", "");
-                    lineArray[x] = check;
-                    x++;
-                }
-            }
-            catch 
-            {
-                return null;
-            }
-
-            return lineArray;
-        }
-
         // Calculate Standard Deviation
-        static double StandardDeviation(double average,List<double> doubleList)
+        double StandardDeviation(double average,List<double> doubleList)
         {
             double sumOfDerivation = 0;
 
@@ -195,6 +169,25 @@ namespace Time_Compressor
             }
 
             return Math.Sqrt(sumOfDerivation / (doubleList.Count - 1));
+        }
+
+        AVGSTD OneColumn(int x, int icounter)
+        {
+            AVGSTD rtn = new AVGSTD();
+
+            List<double> avg = new List<double>();
+            List<double> std = new List<double>();
+
+            for (int y = 0; y < icounter; y++)
+            {
+                avg.Add(buffer[y, x]);
+                std.Add(buffer[y, x]);
+            }
+
+            rtn.avg = avg.Average();
+            rtn.std = StandardDeviation(rtn.avg, std);
+                        
+            return rtn;
         }
     }
 }
