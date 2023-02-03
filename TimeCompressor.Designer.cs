@@ -33,11 +33,12 @@
             this.txtCount = new System.Windows.Forms.TextBox();
             this.lblCount = new System.Windows.Forms.Label();
             this.lblRecordNumber = new System.Windows.Forms.Label();
+            this.chkFieldSeparators = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn_compress
             // 
-            this.btn_compress.Location = new System.Drawing.Point(53, 57);
+            this.btn_compress.Location = new System.Drawing.Point(53, 100);
             this.btn_compress.Name = "btn_compress";
             this.btn_compress.Size = new System.Drawing.Size(206, 62);
             this.btn_compress.TabIndex = 0;
@@ -71,11 +72,22 @@
             this.lblRecordNumber.TabIndex = 3;
             this.lblRecordNumber.Text = "Record #";
             // 
+            // chkFieldSeparators
+            // 
+            this.chkFieldSeparators.AutoSize = true;
+            this.chkFieldSeparators.Location = new System.Drawing.Point(53, 57);
+            this.chkFieldSeparators.Name = "chkFieldSeparators";
+            this.chkFieldSeparators.Size = new System.Drawing.Size(102, 17);
+            this.chkFieldSeparators.TabIndex = 4;
+            this.chkFieldSeparators.Text = "Field Separators";
+            this.chkFieldSeparators.UseVisualStyleBackColor = true;
+            // 
             // TimeCompressor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 136);
+            this.ClientSize = new System.Drawing.Size(302, 186);
+            this.Controls.Add(this.chkFieldSeparators);
             this.Controls.Add(this.lblRecordNumber);
             this.Controls.Add(this.lblCount);
             this.Controls.Add(this.txtCount);
@@ -84,7 +96,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "TimeCompressor";
-            this.Text = "Time Compressor v1.1";
+            this.Text = "Time Compressor v1.5";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,6 +108,7 @@
         private System.Windows.Forms.TextBox txtCount;
         private System.Windows.Forms.Label lblCount;
         private System.Windows.Forms.Label lblRecordNumber;
+        private System.Windows.Forms.CheckBox chkFieldSeparators;
     }
 }
 

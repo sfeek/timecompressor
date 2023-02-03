@@ -14,6 +14,9 @@ namespace Time_Compressor
         {
             public double avg;
             public double std;
+            public double var;
+            public double min;
+            public double max;
         };
 
         double[,] buffer;
@@ -43,7 +46,7 @@ namespace Time_Compressor
             {
                 interval = Convert.ToInt32(txtCount.Text);
             }
-            catch { return; }
+            catch { btn_compress.Enabled = true; return; }
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -55,7 +58,14 @@ namespace Time_Compressor
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     outfilename = openFileDialog.FileName + "-cmp.csv";
-                    if (File.Exists(outfilename)) File.Delete(outfilename); // Make sure the old file is gone
+                    if (File.Exists(outfilename))
+                    {
+                        try
+                        {
+                            File.Delete(outfilename); // Make sure the old file is gone
+                        }
+                        catch { btn_compress.Enabled = true; return; }
+                    }
 
                     var fileStream = openFileDialog.OpenFile();
 
@@ -69,9 +79,12 @@ namespace Time_Compressor
                         for (int x = 0; x < labels.Length; x++) // Write out our labels
                         {
                             if (x < labels.Length - 1)
-                                output += labels[x] + "_avg," + labels[x] + "_std,";
+                                if (chkFieldSeparators.Checked == false) 
+                                    output += labels[x] + "_avg," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max,";
+                                else
+                                    output += labels[x] + "_avg," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max,,";
                             else
-                                output += labels[x] + "_avg," + labels[x] + "_std";
+                                output += labels[x] + "_avg," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max"; 
                         }
 
                         Task<AVGSTD>[] t = new Task<AVGSTD>[labels.Length];
@@ -101,9 +114,12 @@ namespace Time_Compressor
                                     for (int x = 0; x < labels.Length; x++)
                                     {
                                         if (x < labels.Length - 1)
-                                            output += t[x].Result.avg + "," + t[x].Result.std + ",";
+                                            if (chkFieldSeparators.Checked == false)
+                                                output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",";
+                                            else
+                                                output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",,";
                                         else
-                                            output += t[x].Result.avg + "," + t[x].Result.std;
+                                            output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max;
                                     }
 
                                     sw.WriteLine(output);
@@ -142,9 +158,12 @@ namespace Time_Compressor
                             for (int x = 0; x < labels.Length; x++)
                             {
                                 if (x < labels.Length - 1)
-                                    output += t[x].Result.avg + "," + t[x].Result.std + ",";
+                                    if (chkFieldSeparators.Checked == false)
+                                        output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",";
+                                    else
+                                        output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",,";
                                 else
-                                    output += t[x].Result.avg + "," + t[x].Result.std;
+                                    output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max;
                             }
 
                             sw.WriteLine(output);
@@ -177,16 +196,23 @@ namespace Time_Compressor
 
             List<double> avg = new List<double>();
             List<double> std = new List<double>();
+            List<double> var = new List<double>();
+            List<double> min = new List<double>();
+            List<double> max = new List<double>();
 
             for (int y = 0; y < icounter; y++)
             {
                 avg.Add(buffer[y, x]);
                 std.Add(buffer[y, x]);
+                var.Add(buffer[y, x]);
             }
 
             rtn.avg = avg.Average();
             rtn.std = StandardDeviation(rtn.avg, std);
-                        
+            rtn.var = rtn.std * rtn.std;
+            rtn.min = avg.Min();
+            rtn.max = avg.Max();
+                                    
             return rtn;
         }
     }
