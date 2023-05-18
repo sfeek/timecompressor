@@ -1,0 +1,15 @@
+D:\Source Code\timecompressor\bin\Debug\Time Compressor.exe.config
+D:\Source Code\timecompressor\bin\Debug\Time Compressor.exe.manifest
+D:\Source Code\timecompressor\bin\Debug\Time Compressor.application
+D:\Source Code\timecompressor\bin\Debug\Time Compressor.exe
+D:\Source Code\timecompressor\bin\Debug\Time Compressor.pdb
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.csproj.AssemblyReference.cache
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.csproj.SuggestedBindingRedirects.cache
+D:\Source Code\timecompressor\obj\Debug\Time_Compressor.TimeCompressor.resources
+D:\Source Code\timecompressor\obj\Debug\Time_Compressor.Properties.Resources.resources
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.csproj.GenerateResource.cache
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.csproj.CoreCompileInputs.cache
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.exe.manifest
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.application
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.exe
+D:\Source Code\timecompressor\obj\Debug\Time Compressor.pdb
