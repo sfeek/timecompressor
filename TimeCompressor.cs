@@ -13,10 +13,13 @@ namespace Time_Compressor
         class AVGSTD
         {
             public double avg;
+            public double med;
             public double std;
             public double var;
             public double min;
             public double max;
+            public int z_plus;
+            public int z_minus;
         };
 
         double[,] buffer;
@@ -80,11 +83,11 @@ namespace Time_Compressor
                         {
                             if (x < labels.Length - 1)
                                 if (chkFieldSeparators.Checked == false) 
-                                    output += labels[x] + "_avg," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max,";
+                                    output += labels[x] + "_avg," + labels[x] + "_med," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max," + labels[x] + "_zminus," + labels[x] + "_zplus,";
                                 else
-                                    output += labels[x] + "_avg," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max,,";
+                                    output += labels[x] + "_avg," + labels[x] + "_med," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max," + labels[x] + "_zminus," + labels[x] + "_zplus,,";
                             else
-                                output += labels[x] + "_avg," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max"; 
+                                output += labels[x] + "_avg," + labels[x] + "_med," + labels[x] + "_std," + labels[x] + "_var," + labels[x] + "_min," + labels[x] + "_max" + labels[x] + "_zminus," + labels[x] + "_zplus"; 
                         }
 
                         Task<AVGSTD>[] t = new Task<AVGSTD>[labels.Length];
@@ -115,11 +118,11 @@ namespace Time_Compressor
                                     {
                                         if (x < labels.Length - 1)
                                             if (chkFieldSeparators.Checked == false)
-                                                output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",";
+                                                output += t[x].Result.avg + "," + t[x].Result.med + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + "," + t[x].Result.z_minus + "," + t[x].Result.z_plus + ",";
                                             else
-                                                output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",,";
+                                                output += t[x].Result.avg + "," + t[x].Result.med + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + "," + t[x].Result.z_minus + "," + t[x].Result.z_plus + ",,";
                                         else
-                                            output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max;
+                                            output += t[x].Result.avg + "," + t[x].Result.med + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + "," + t[x].Result.z_minus + "," + t[x].Result.z_plus;
                                     }
 
                                     sw.WriteLine(output);
@@ -144,8 +147,7 @@ namespace Time_Compressor
 
                             output = String.Empty;
                             output += counter + ",";
-
-                            // Finished the leftover lines
+                                                        
                             for (int x = 0; x < labels.Length; x++)
                             {
                                 int p = x;
@@ -154,16 +156,16 @@ namespace Time_Compressor
                             }
 
                             Task.WaitAll(t);
-
+                                                        
                             for (int x = 0; x < labels.Length; x++)
                             {
                                 if (x < labels.Length - 1)
                                     if (chkFieldSeparators.Checked == false)
-                                        output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",";
+                                        output += t[x].Result.avg + "," + t[x].Result.med + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + "," + t[x].Result.z_minus + "," + t[x].Result.z_plus + ",";
                                     else
-                                        output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + ",,";
+                                        output += t[x].Result.avg + "," + t[x].Result.med + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + "," + t[x].Result.z_minus + "," + t[x].Result.z_plus + ",,";
                                 else
-                                    output += t[x].Result.avg + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max;
+                                    output += t[x].Result.avg + "," + t[x].Result.med + "," + t[x].Result.std + "," + t[x].Result.var + "," + t[x].Result.min + "," + t[x].Result.max + "," + t[x].Result.z_minus + "," + t[x].Result.z_plus;
                             }
 
                             sw.WriteLine(output);
@@ -175,6 +177,7 @@ namespace Time_Compressor
                 }
             }
             btn_compress.Enabled = true;
+            lblRecordNumber.Text = "Record # Done!";
         }
 
         // Calculate Standard Deviation
@@ -190,29 +193,70 @@ namespace Time_Compressor
             return Math.Sqrt(sumOfDerivation / (doubleList.Count - 1));
         }
 
+        double Median(List<double> doubleList)
+        {
+            int s = doubleList.Count;
+            doubleList.Sort();
+
+            if (s % 2 == 0)
+            {
+                return (doubleList[s / 2] + doubleList[s / 2 + 1]) / 2.0;
+            } 
+            else
+            {
+                return doubleList[s / 2];
+            }
+        }
+
         AVGSTD OneColumn(int x, int icounter)
         {
             AVGSTD rtn = new AVGSTD();
 
             List<double> avg = new List<double>();
+            List<double> med = new List<double>();
             List<double> std = new List<double>();
             List<double> var = new List<double>();
             List<double> min = new List<double>();
             List<double> max = new List<double>();
+            List<int> z_minus = new List<int>();
+            List<int> z_plus = new List<int>();
+
+            rtn.z_plus = 0;
+            rtn.z_minus = 0;
+            double z_thresh = 0.0;
+            double z = 0.0;
+
+            try
+            {
+                z_thresh = Math.Abs(Convert.ToDouble(txtZThresh.Text));
+            }
+            catch { }
 
             for (int y = 0; y < icounter; y++)
             {
                 avg.Add(buffer[y, x]);
+                med.Add(buffer[y, x]);
                 std.Add(buffer[y, x]);
                 var.Add(buffer[y, x]);
             }
 
             rtn.avg = avg.Average();
+            rtn.med = Median(med);
             rtn.std = StandardDeviation(rtn.avg, std);
             rtn.var = rtn.std * rtn.std;
             rtn.min = avg.Min();
             rtn.max = avg.Max();
-                                    
+            
+            if (z_thresh > 0.0)
+            {
+                for (int y = 0; y < icounter; y++)
+                {
+                    z = (buffer[y, x] - rtn.avg) / rtn.std;
+                    if (z < -z_thresh) rtn.z_minus++;
+                    if (z > z_thresh) rtn.z_plus++;
+                }
+            }
+
             return rtn;
         }
     }

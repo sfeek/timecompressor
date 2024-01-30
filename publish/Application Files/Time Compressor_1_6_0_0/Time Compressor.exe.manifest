@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Time Compressor.exe" version="1.6.0.0" publicKeyToken="32241ce4f8ed6caf" language="neutral" processorArchitecture="amd64" type="win32" />
+  <description asmv2:iconFile="statistics.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Time Compressor" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+    <commandLine file="Time Compressor.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Time Compressor.exe" size="232944">
+      <assemblyIdentity name="Time Compressor" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>o4hVaJUL7WzzkLKNTtYSol8KJBhn5xzJW34Sk4AbcT8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="statistics.ico" size="107800">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>p9pE3OeryYFkTsrh95g+mYIX4KOjLITresvIdxViH30=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Time Compressor.exe.config" size="189">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=STRUCTURETEC\shane.feek" issuerKeyHash="516136ab2cb5c409631513209dcdee45cd268476" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>m1WKwTD3sA8nsbIgR/UiXpcuArC2PJWy2NXq4FEP7bk=</DigestValue></Reference></SignedInfo><SignatureValue>McA4g9YimFCb111JpRs2AkOGJQrodyNPy3XAG2vFlG5HYaa2ALgqVsPyBrMTkZRZfeyFSGfXxQ264sU+0Fs6mpaA0065hQTrvTfIHPVCZhtqON6kGWdS3q7pKbem8ZxMjyFEa5vOhrE0NlWrSBGr7uO0r7T8JufvOsIX7JxfaKk=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>wtccmsW/GL+BWPtYcBF6wtK4qFOmWtffTOugl6wwnZoJyD4eU7v8lRdTEmZ6iPpfr/iSTyWzIiQvr++r4tdD10GaIPwYJDe+0HmwC7QHLYqOJ/L1z3ZcgfF3dnaehiIsXrjzI5R1Uyy05EFxOlAlWNwEcKGGW6LzFBy3p8jW4o0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="b9ed0f51e0ead5d8b2953cb6b0022e975e22f54720b2b1270fb0f730c18a559b" Description="" Url=""><as:assemblyIdentity name="Time Compressor.exe" version="1.6.0.0" publicKeyToken="32241ce4f8ed6caf" language="neutral" processorArchitecture="amd64" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=STRUCTURETEC\shane.feek</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>UG7aGiElIUITXKvpmBq+DmRFyoAEuysq5RT+W1XNjhY=</DigestValue></Reference></SignedInfo><SignatureValue>Afvd0SiPJUalhe4UdpjBzBau5osCVCfDWREh0DSGMd9YhlNZSitUhUYVGAXmmNVtUAnbiUwiP/qY/Auz2GBuj7aVRx2IdG6Z8v3mwcdhYHDx6mCSfsXaoTyZjTgqG9vjIAJd1aGoEWEtK27kAwDVhslizG0BDlHhEhdqJ00jFww=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>wtccmsW/GL+BWPtYcBF6wtK4qFOmWtffTOugl6wwnZoJyD4eU7v8lRdTEmZ6iPpfr/iSTyWzIiQvr++r4tdD10GaIPwYJDe+0HmwC7QHLYqOJ/L1z3ZcgfF3dnaehiIsXrjzI5R1Uyy05EFxOlAlWNwEcKGGW6LzFBy3p8jW4o0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB9TCCAV6gAwIBAgIQUDz9Nwb7Xa5C3pWIK6q6HTANBgkqhkiG9w0BAQsFADA5MTcwNQYDVQQDHi4AUwBUAFIAVQBDAFQAVQBSAEUAVABFAEMAXABzAGgAYQBuAGUALgBmAGUAZQBrMB4XDTIzMDIwMzE5MjE0OFoXDTI0MDIwNDAxMjE0OFowOTE3MDUGA1UEAx4uAFMAVABSAFUAQwBUAFUAUgBFAFQARQBDAFwAcwBoAGEAbgBlAC4AZgBlAGUAazCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwtccmsW/GL+BWPtYcBF6wtK4qFOmWtffTOugl6wwnZoJyD4eU7v8lRdTEmZ6iPpfr/iSTyWzIiQvr++r4tdD10GaIPwYJDe+0HmwC7QHLYqOJ/L1z3ZcgfF3dnaehiIsXrjzI5R1Uyy05EFxOlAlWNwEcKGGW6LzFBy3p8jW4o0CAwEAATANBgkqhkiG9w0BAQsFAAOBgQBJ7HtwK74ICLybjT/BeG2BqOqXFZoEkmqwB5jrkSMwMGz9H1Clr4yt4dICX3S1Bsn4t5pFATBlVCbrSTTialEKxxNGZb9f0amYt2iVy2FhuLuSVd+FSrVd+Z99EVkNGi4IB+VI5uQNSZ3x11VzUH7AbJLJyr6JPG3q0/rqXi7Dzw==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
